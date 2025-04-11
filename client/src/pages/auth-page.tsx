@@ -92,16 +92,16 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-blue-900">
+    <div className="min-h-screen flex flex-col md:flex-row bg-blue-950">
       {/* Left column: Authentication forms */}
       <div className="w-full md:w-1/2 flex items-center justify-center p-4">
         <Card className="w-full max-w-md shadow-xl">
           <CardHeader className="space-y-1">
             <div className="flex justify-center mb-4">
               <img 
-                src="/logo.png" 
+                src="/logo.svg" 
                 alt="MediTrack Logo" 
-                className="h-12"
+                className="h-16"
                 onError={(e) => {
                   const target = e.target as HTMLImageElement;
                   target.src = "https://via.placeholder.com/120x48?text=MediTrack";
@@ -282,7 +282,7 @@ export default function AuthPage() {
       </div>
 
       {/* Right column: Hero section */}
-      <div className="w-full md:w-1/2 bg-blue-800 p-8 flex items-center hidden md:flex">
+      <div className="w-full md:w-1/2 bg-blue-900 p-8 flex items-center hidden md:flex">
         <div className="max-w-md mx-auto text-white">
           <h1 className="text-3xl font-bold mb-6">Emergency Medical Response System</h1>
           <div className="space-y-4">
