@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
   <rect width="32" height="32" rx="4" fill="#1E3A8A" />
-  <path d="M8 24V8H16C17.6 8 18.9167 8.41667 19.75 9.25C20.5833 10.0833 21 11.1667 21 12.5C21 13.8333 20.5833 14.9167 19.75 15.75C18.9167 16.5833 17.6 17 16 17H11V24H8ZM11 14H16C16.55 14 17 13.8 17.35 13.45C17.7 13.1 17.85 12.65 17.85 12.1C17.85 11.55 17.7 11.1 17.35 10.75C17 10.4 16.55 10.2 16 10.2H11V14Z" fill="#4ade80"/>
+  
+  <!-- Medical Cross -->
+  <rect x="11" y="6" width="10" height="20" rx="2" fill="#4ade80" />
+  <rect x="6" y="11" width="20" height="10" rx="2" fill="#4ade80" />
+  
+  <!-- HeartBeat Line -->
+  <path d="M6,16 L10,16 L12,12 L14,20 L16,14 L18,16 L20,16 L22,12 L24,19 L26,16" 
+        stroke="#FF4444" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        fill="none" />
 </svg>
