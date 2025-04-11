@@ -1,16 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="240" height="100" viewBox="0 0 240 100" fill="none">
-  <rect width="240" height="100" rx="8" fill="#1E3A8A" />
+  <style>
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.02); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      15% { transform: scale(1.1); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.1); }
+      60% { transform: scale(1); }
+    }
+    
+    @keyframes dash {
+      to { stroke-dashoffset: 0; }
+    }
+    
+    @keyframes heartbeat-color {
+      0% { stroke: #FF4444; }
+      50% { stroke: #FF8888; }
+      100% { stroke: #FF4444; }
+    }
+    
+    .logo-bg {
+      fill: #1E3A8A;
+    }
+    
+    .cross {
+      fill: #4ade80;
+      transform-origin: center;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    
+    .heartbeat-line {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: dash 2s linear forwards, heartbeat-color 4s infinite;
+    }
+    
+    .medi-text {
+      fill: #FFFFFF;
+    }
+    
+    .track-text {
+      fill: #4ade80;
+    }
+    
+    .slogan-text {
+      fill: #FFFFFF;
+      opacity: 0;
+      animation: fadeIn 1s ease-out 1.5s forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+
+  <!-- Background -->
+  <rect class="logo-bg" width="240" height="100" rx="8" />
   
   <!-- Background for text visibility -->
   <rect x="0" y="60" width="240" height="30" fill="#1E3A8A" opacity="0.7" />
   
   <!-- Medical Cross -->
-  <rect x="20" y="25" width="40" height="30" rx="4" fill="#4ade80" />
-  <rect x="25" y="20" width="30" height="40" rx="4" fill="#4ade80" />
+  <g>
+    <rect class="cross" x="20" y="25" width="40" height="30" rx="4" />
+    <rect class="cross" x="25" y="20" width="30" height="40" rx="4" />
+  </g>
   
   <!-- HeartBeat Line runs across the entire logo -->
-  <path d="M10,40 L40,40 L50,30 L60,50 L70,25 L80,40 L95,40 L105,30 L115,45 L125,40 L230,40" 
+  <path class="heartbeat-line" 
+        d="M10,40 L40,40 L50,30 L60,50 L70,25 L80,40 L95,40 L105,30 L115,45 L125,40 L230,40" 
         stroke="#FF4444" 
         stroke-width="3" 
         stroke-linecap="round" 
@@ -19,12 +84,12 @@
         
   <!-- MediTrack Text -->
   <text font-family="Arial, sans-serif" font-size="28" font-weight="bold">
-    <tspan x="85" y="45" fill="#FFFFFF">Medi</tspan>
-    <tspan x="150" y="45" fill="#4ade80">Track</tspan>
+    <tspan class="medi-text" x="85" y="45">Medi</tspan>
+    <tspan class="track-text" x="150" y="45">Track</tspan>
   </text>
   
   <!-- Slogan Text -->
-  <text x="120" y="80" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#FFFFFF" font-weight="bold">
+  <text class="slogan-text" x="120" y="80" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" font-weight="bold">
     Track Emergency, Save Lives
   </text>
 </svg>

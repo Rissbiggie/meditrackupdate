@@ -1,13 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+  <style>
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.02); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    
+    @keyframes dash {
+      to { stroke-dashoffset: 0; }
+    }
+    
+    @keyframes heartbeat-color {
+      0% { stroke: #FF4444; }
+      50% { stroke: #FF8888; }
+      100% { stroke: #FF4444; }
+    }
+    
+    .cross {
+      fill: #4ade80;
+      transform-origin: center;
+      animation: pulse 3s ease-in-out infinite;
+    }
+    
+    .heartbeat-line {
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: dash 2s linear forwards, heartbeat-color 4s infinite;
+    }
+  </style>
+
   <rect width="32" height="32" rx="4" fill="#1E3A8A" />
   
   <!-- Medical Cross -->
-  <rect x="4" y="8" width="10" height="8" rx="2" fill="#4ade80" />
-  <rect x="5.5" y="6.5" width="7" height="11" rx="2" fill="#4ade80" />
+  <rect class="cross" x="4" y="8" width="10" height="8" rx="2" />
+  <rect class="cross" x="5.5" y="6.5" width="7" height="11" rx="2" />
   
   <!-- HeartBeat Line -->
-  <path d="M2,14 L6,14 L7,11 L8,17 L9,10 L10,14 L12,14 L14,11 L16,16 L18,14 L30,14" 
+  <path class="heartbeat-line" 
+        d="M2,14 L6,14 L7,11 L8,17 L9,10 L10,14 L12,14 L14,11 L16,16 L18,14 L30,14" 
         stroke="#FF4444" 
         stroke-width="1.5" 
         stroke-linecap="round" 
