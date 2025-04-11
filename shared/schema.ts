@@ -1,4 +1,5 @@
 import { pgTable, text, serial, integer, boolean, timestamp, json } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -144,3 +145,42 @@ export type InsertSetting = z.infer<typeof insertSettingsSchema>;
 
 export type Stats = typeof stats.$inferSelect;
 export type InsertStats = z.infer<typeof insertStatsSchema>;
+
+// Define relations
+export const usersRelations = relations(users, ({ many, one }) => ({
+  emergencyRequests: many(emergencyRequests),
+  notifications: many(notifications),
+  settings: one(settings, {
+    fields: [users.id],
+    references: [settings.userId],
+  }),
+}));
+
+export const emergencyRequestsRelations = relations(emergencyRequests, ({ one }) => ({
+  user: one(users, {
+    fields: [emergencyRequests.userId],
+    references: [users.id],
+  }),
+  responseTeam: one(responseTeams, {
+    fields: [emergencyRequests.responseTeamId],
+    references: [responseTeams.id],
+  }),
+}));
+
+export const responseTeamsRelations = relations(responseTeams, ({ many }) => ({
+  emergencyRequests: many(emergencyRequests),
+}));
+
+export const notificationsRelations = relations(notifications, ({ one }) => ({
+  user: one(users, {
+    fields: [notifications.userId],
+    references: [users.id],
+  }),
+}));
+
+export const settingsRelations = relations(settings, ({ one }) => ({
+  user: one(users, {
+    fields: [settings.userId],
+    references: [users.id],
+  }),
+}));
