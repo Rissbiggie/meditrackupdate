@@ -927,166 +927,179 @@ export class DatabaseStorage implements IStorage {
 
   // Initialize demo data for development/testing
   async initializeDemoData(): Promise<void> {
-    // Create demo user
-    const demoUser = await this.createUser({
-      username: "demo_user",
-      password: "password123",
-      email: "user@example.com",
-      phone: "(555) 123-4567",
-      fullName: "John Smith",
-      userType: "user",
-      profilePhoto: null
-    });
-    
-    // Create demo admin
-    await this.createUser({
-      username: "admin",
-      password: "admin123",
-      email: "admin@example.com",
-      phone: "(555) 987-6543",
-      fullName: "Admin User",
-      userType: "admin",
-      profilePhoto: null
-    });
-    
-    // Create demo response team member
-    await this.createUser({
-      username: "responder",
-      password: "responder123",
-      email: "responder@example.com",
-      phone: "(555) 456-7890",
-      fullName: "Response Team Member",
-      userType: "response_team",
-      profilePhoto: null
-    });
-    
-    // Create demo response teams
-    await this.createResponseTeam({
-      name: "Team Alpha",
-      status: "available",
-      latitude: "40.7128",
-      longitude: "-74.0060"
-    });
-    
-    await this.createResponseTeam({
-      name: "Team Bravo",
-      status: "busy",
-      latitude: "40.7282",
-      longitude: "-73.9942"
-    });
-    
-    await this.createResponseTeam({
-      name: "Team Charlie",
-      status: "available",
-      latitude: "40.7300",
-      longitude: "-74.0200"
-    });
-    
-    // Create demo emergency requests
-    await this.createEmergencyRequest({
-      userId: demoUser.id,
-      status: "critical",
-      latitude: "40.7128",
-      longitude: "-74.0060",
-      description: "Critical emergency situation",
-      responseTeamId: 1
-    });
-    
-    await this.createEmergencyRequest({
-      userId: demoUser.id,
-      status: "in_progress",
-      latitude: "40.7282",
-      longitude: "-73.9942",
-      description: "In progress emergency",
-      responseTeamId: 2
-    });
-    
-    // Create demo medical services
-    await this.createMedicalService({
-      name: "City General Hospital",
-      type: "hospital",
-      address: "123 Main St, City Center",
-      latitude: "40.7128",
-      longitude: "-74.0060",
-      phone: "(555) 111-1111",
-      rating: "4.5",
-      reviewCount: 120,
-      openingHours: "24/7",
-      distance: null
-    });
-    
-    await this.createMedicalService({
-      name: "Westside Urgent Care",
-      type: "urgent_care",
-      address: "456 West St, Westside",
-      latitude: "40.7200",
-      longitude: "-74.0100",
-      phone: "(555) 222-2222",
-      rating: "4.2",
-      reviewCount: 85,
-      openingHours: "8AM-10PM",
-      distance: null
-    });
-    
-    await this.createMedicalService({
-      name: "Downtown Pharmacy",
-      type: "pharmacy",
-      address: "789 Market St, Downtown",
-      latitude: "40.7150",
-      longitude: "-74.0080",
-      phone: "(555) 333-3333",
-      rating: "4.0",
-      reviewCount: 65,
-      openingHours: "8AM-9PM",
-      distance: null
-    });
-    
-    // Create system status
-    await this.createSystemStatus({
-      name: "System Status",
-      status: "operational",
-      icon: "check-circle"
-    });
-    
-    // Create activities
-    await this.createActivity({
-      title: "Emergency Request",
-      description: "New emergency request created",
-      icon: "alert-circle",
-      iconBg: "bg-red-500"
-    });
-    
-    await this.createActivity({
-      title: "Team Dispatched",
-      description: "Response team dispatched to emergency location",
-      icon: "truck",
-      iconBg: "bg-yellow-500"
-    });
-    
-    // Create notifications
-    await this.createNotification({
-      userId: demoUser.id,
-      title: "Emergency Update",
-      message: "Response team is on the way to your location",
-      read: false
-    });
-    
-    await this.createNotification({
-      userId: demoUser.id,
-      title: "System Alert",
-      message: "Please update your application to the latest version",
-      read: true
-    });
-    
-    // Create user settings
-    await this.createUserSettings({
-      userId: demoUser.id,
-      emergencyAlerts: true,
-      emailNotifications: true,
-      smsNotifications: false,
-      locationSharing: true,
-      anonymousDataCollection: true
-    });
+    try {
+      // Check if demo data already exists
+      const existingUser = await this.getUserByUsername("demo_user");
+      if (existingUser) {
+        console.log("Demo data already initialized, skipping...");
+        return;
+      }
+      
+      // Create demo user
+      const demoUser = await this.createUser({
+        username: "demo_user",
+        password: "password123",
+        email: "user@example.com",
+        phone: "(555) 123-4567",
+        fullName: "John Smith",
+        userType: "user",
+        profilePhoto: null
+      });
+      
+      // Create demo admin
+      await this.createUser({
+        username: "admin",
+        password: "admin123",
+        email: "admin@example.com",
+        phone: "(555) 987-6543",
+        fullName: "Admin User",
+        userType: "admin",
+        profilePhoto: null
+      });
+      
+      // Create demo response team member
+      await this.createUser({
+        username: "responder",
+        password: "responder123",
+        email: "responder@example.com",
+        phone: "(555) 456-7890",
+        fullName: "Response Team Member",
+        userType: "response_team",
+        profilePhoto: null
+      });
+      
+      // Create demo response teams
+      await this.createResponseTeam({
+        name: "Team Alpha",
+        status: "available",
+        latitude: "40.7128",
+        longitude: "-74.0060"
+      });
+      
+      await this.createResponseTeam({
+        name: "Team Bravo",
+        status: "busy",
+        latitude: "40.7282",
+        longitude: "-73.9942"
+      });
+      
+      await this.createResponseTeam({
+        name: "Team Charlie",
+        status: "available",
+        latitude: "40.7300",
+        longitude: "-74.0200"
+      });
+      
+      // Create demo emergency requests
+      await this.createEmergencyRequest({
+        userId: demoUser.id,
+        status: "critical",
+        latitude: "40.7128",
+        longitude: "-74.0060",
+        description: "Critical emergency situation",
+        responseTeamId: 1
+      });
+      
+      await this.createEmergencyRequest({
+        userId: demoUser.id,
+        status: "in_progress",
+        latitude: "40.7282",
+        longitude: "-73.9942",
+        description: "In progress emergency",
+        responseTeamId: 2
+      });
+      
+      // Create demo medical services
+      await this.createMedicalService({
+        name: "City General Hospital",
+        type: "hospital",
+        address: "123 Main St, City Center",
+        latitude: "40.7128",
+        longitude: "-74.0060",
+        phone: "(555) 111-1111",
+        rating: "4.5",
+        reviewCount: 120,
+        openingHours: "24/7",
+        distance: null
+      });
+      
+      await this.createMedicalService({
+        name: "Westside Urgent Care",
+        type: "urgent_care",
+        address: "456 West St, Westside",
+        latitude: "40.7200",
+        longitude: "-74.0100",
+        phone: "(555) 222-2222",
+        rating: "4.2",
+        reviewCount: 85,
+        openingHours: "8AM-10PM",
+        distance: null
+      });
+      
+      await this.createMedicalService({
+        name: "Downtown Pharmacy",
+        type: "pharmacy",
+        address: "789 Market St, Downtown",
+        latitude: "40.7150",
+        longitude: "-74.0080",
+        phone: "(555) 333-3333",
+        rating: "4.0",
+        reviewCount: 65,
+        openingHours: "8AM-9PM",
+        distance: null
+      });
+      
+      // Create system status
+      await this.createSystemStatus({
+        name: "System Status",
+        status: "operational",
+        icon: "check-circle"
+      });
+      
+      // Create activities
+      await this.createActivity({
+        title: "Emergency Request",
+        description: "New emergency request created",
+        icon: "alert-circle",
+        iconBg: "bg-red-500"
+      });
+      
+      await this.createActivity({
+        title: "Team Dispatched",
+        description: "Response team dispatched to emergency location",
+        icon: "truck",
+        iconBg: "bg-yellow-500"
+      });
+      
+      // Create notifications
+      await this.createNotification({
+        userId: demoUser.id,
+        title: "Emergency Update",
+        message: "Response team is on the way to your location",
+        read: false
+      });
+      
+      await this.createNotification({
+        userId: demoUser.id,
+        title: "System Alert",
+        message: "Please update your application to the latest version",
+        read: true
+      });
+      
+      // Create user settings
+      await this.createUserSettings({
+        userId: demoUser.id,
+        emergencyAlerts: true,
+        emailNotifications: true,
+        smsNotifications: false,
+        locationSharing: true,
+        anonymousDataCollection: true
+      });
+      
+      console.log("Demo data initialized successfully");
+    } catch (error) {
+      console.error("Error initializing demo data:", error);
+    }
   }
 }
 
