@@ -1,6 +1,7 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { setupAuth } from "./auth";
 import { 
   insertUserSchema, 
   insertEmergencyRequestSchema,
@@ -14,6 +15,8 @@ import {
 import { ZodError } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Set up authentication
+  setupAuth(app);
   // Error handling middleware for Zod validation errors
   const handleZodError = (error: ZodError, res: Response) => {
     return res.status(400).json({

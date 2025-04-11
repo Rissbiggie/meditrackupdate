@@ -11,6 +11,9 @@ import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
 import FindServices from "@/pages/find-services";
 import Settings from "@/pages/settings";
+import AuthPage from "@/pages/auth-page";
+import { AuthProvider } from "@/hooks/use-auth";
+import { ProtectedRoute } from "@/lib/protected-route";
 
 // Main AppLayout component
 const AppLayout = () => {
@@ -67,11 +70,14 @@ const AppLayout = () => {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Switch>
-        <Route path="/" component={AppLayout} />
-        <Route component={NotFound} />
-      </Switch>
-      <Toaster />
+      <AuthProvider>
+        <Switch>
+          <ProtectedRoute path="/" component={AppLayout} />
+          <Route path="/auth" component={AuthPage} />
+          <Route component={NotFound} />
+        </Switch>
+        <Toaster />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
